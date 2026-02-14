@@ -85,6 +85,10 @@ struct ToolCard: View {
                 Toggle("", isOn: $tool.isActive)
                     .labelsHidden()
                     .scaleEffect(0.8)
+                    .onChange(of: tool.isActive) { oldValue, newValue in
+                        let generator = UIImpactFeedbackGenerator(style: .medium)
+                        generator.impactOccurred()
+                    }
             }
             
             Text(tool.name)

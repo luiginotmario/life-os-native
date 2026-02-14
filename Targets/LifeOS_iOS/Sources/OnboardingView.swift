@@ -212,7 +212,11 @@ struct ChannelRow: View {
     let action: () -> Void
     
     var body: some View {
-        Button(action: action) {
+        Button(action: {
+            let generator = UIImpactFeedbackGenerator(style: .light)
+            generator.impactOccurred()
+            action()
+        }) {
             HStack(spacing: 16) {
                 Image(systemName: icon)
                     .font(.title2)

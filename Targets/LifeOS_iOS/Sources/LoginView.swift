@@ -67,6 +67,8 @@ struct LoginView: View {
                 VStack(spacing: 16) {
                     // Continue with Google
                     Button(action: {
+                        let generator = UINotificationFeedbackGenerator()
+                        generator.notificationOccurred(.success)
                         withAnimation { isLoggedIn = true }
                     }) {
                         HStack {
