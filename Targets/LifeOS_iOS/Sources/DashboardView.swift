@@ -15,8 +15,13 @@ struct DashboardView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
+            ZStack {
+                // Ambient Liquid Background
+                LinearGradient(colors: [Color.blue.opacity(0.1), Color.purple.opacity(0.1)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                    .ignoresSafeArea()
+                
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 24) {
                     
                     // Header (Apple Style)
                     HStack {
@@ -44,7 +49,7 @@ struct DashboardView: View {
                             .fontWeight(.bold)
                             .padding(.horizontal)
                         
-                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 16)], spacing: 16) {
                             ForEach($tools) { $tool in
                                 ToolCard(tool: $tool)
                             }
@@ -55,6 +60,7 @@ struct DashboardView: View {
                 .padding(.bottom)
             }
             .navigationBarHidden(true)
+            }
         }
     }
 }
@@ -77,8 +83,9 @@ struct ToolCard: View {
                     .font(.title2)
                     .foregroundStyle(.white)
                     .frame(width: 40, height: 40)
-                    .background(tool.color)
+                    .background(tool.color.gradient)
                     .clipShape(Circle())
+                    .shadow(color: tool.color.opacity(0.3), radius: 5, x: 0, y: 2)
                 
                 Spacer()
                 
@@ -97,7 +104,8 @@ struct ToolCard: View {
                 .foregroundStyle(.primary)
         }
         .padding(16)
-        .background(Color(uiColor: .secondarySystemBackground))
+        .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 20))
+        .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
     }
 }
